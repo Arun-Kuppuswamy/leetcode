@@ -1,0 +1,37 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer,Integer> map1 = new HashMap<>();
+        int[] res = new int[k];
+        for(int i = 0; i < nums.length; i++)
+        {
+            map1.put(nums[i],map1.getOrDefault(nums[i],0)+1);
+        }
+        Map<Integer,List<Integer>> map2 = new HashMap<>();
+        for(Map.Entry<Integer,Integer> e : map1.entrySet())
+        {
+            map2.putIfAbsent(e.getValue(),new ArrayList<Integer>());
+            map2.get(e.getValue()).add(e.getKey());
+        }
+        int count = 0;
+        for(int i = nums.length - 1; i >= 0; i--)
+        {
+            if(map2.containsKey(i+1))
+            {
+                List<Integer> value = map2.get(i+1);
+                for(int j = 0; j < value.size(); j++)
+                {
+                    if(count != k)
+                    {
+                        res[count] = value.get(j);
+                        count++;
+                    }
+                    else
+                    {
+                        return res;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}
