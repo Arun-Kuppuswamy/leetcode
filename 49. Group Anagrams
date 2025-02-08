@@ -1,0 +1,20 @@
+public List<List<String>> groupAnagramsUsingAscii(String[] strs) {
+        List<List<String>> result = new ArrayList<>();
+        Map<String, List<String>> map = new HashMap<>();
+        for(String word : strs)
+        {
+            int[] arr = new int[26];
+            for(int i = 0; i < word.length(); i++)
+            {
+                arr[word.charAt(i)-'a']++;
+            }
+            String mapValue = Arrays.toString(arr);
+            if(!map.containsKey(mapValue))
+            {
+                map.put(mapValue,new ArrayList<>());
+            }
+            map.get(mapValue).add(word);
+        }
+        map.values().forEach(v -> result.add(v));
+        return result;
+    }
