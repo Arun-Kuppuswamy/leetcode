@@ -18,3 +18,71 @@ public List<List<String>> groupAnagramsUsingAscii(String[] strs) {
         map.values().forEach(v -> result.add(v));
         return result;
     }
+
+static List<List<String>> getGroupedAnagramsUsingSorting(String[] words)
+    {
+        HashMap<String,List<String>> map = new HashMap<>();
+        for (int i = 0; i < words.length; i++)
+        {
+            char[] c = words[i].toCharArray();
+            Arrays.sort(c);
+            String sortedWord = new String(c);
+            if(map.containsKey(sortedWord))
+            {
+                List<String> value = map.get(sortedWord);
+                value.add(words[i]);
+                map.put(sortedWord,value);
+            }else
+            {
+                List<String> list = new ArrayList<>();
+                list.add(words[i]);
+                map.put(sortedWord,list);
+            }
+        }
+        List<List<String>> result = new ArrayList<>();
+        map.values().forEach(v -> result.add(v));
+        return result;
+    }
+
+static boolean isAnagram(String s1, String s2)
+    {
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
+        Map<Character,Integer> map = new HashMap<>();
+        for (Character c:s1.toCharArray())
+        {
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        for (Character c:s2.toCharArray())
+        {
+
+            if(map.containsKey(c))
+            {
+                if(map.get(c) == 0) return false;
+                map.put(c,map.get(c)-1);
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    static List<List<String>> getGroupedAnagramsUsingBruteForce(String[] words) {
+        List<List<String>> groupedAnagram = new ArrayList<>();
+        for (int j = 0; j < words.length;j++) {
+            if(words[j].endsWith("*")) continue;
+            List<String> outputArray = new ArrayList<>();
+            outputArray.add(words[j]);
+            for (int i = j+1; i < words.length; i++) {
+                if (isAnagram(words[j],words[i]))
+                {
+                    outputArray.add(words[i]);
+                    words[i] = words[i] + "*";
+                }
+            }
+            groupedAnagram.add(outputArray);
+        }
+        return groupedAnagram;
+    }
