@@ -20,6 +20,8 @@
  * Output: true
  * Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
  */
+
+// Space Complexity is expensive
 public class Solution {
     public boolean hasCycle(ListNode head) {
         int count = 0;
@@ -34,3 +36,18 @@ public class Solution {
         return false;
     }
 }
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head == null) return false;
+        ListNode fast = head.next;
+        ListNode slow = head;
+        while(fast != null && fast.next != null)
+        {
+            if(slow == fast) return true;
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return false;
+    }
+    }
