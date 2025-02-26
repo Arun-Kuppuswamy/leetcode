@@ -1,0 +1,38 @@
+//Input: head = [1,1,2]
+//Output: [1,2]
+//
+//Input: head = [1,1,2,3,3]
+//Output: [1,2,3]
+
+package LinkedListPackage;
+
+public class RemoveDuplicatesFromSortedLinkedList {
+    public ListNode deleteDuplicates(ListNode head) {
+        // Curr = head
+
+    ListNode curr = head;
+    // while curr != null
+        while(curr != null)
+        {
+            ListNode temp = curr.next;
+            while(curr != null && temp != null && curr.val == temp.val)
+            {
+                curr.next = temp.next;
+                temp = curr.next;
+            }
+            curr = curr.next;
+        }
+        return head;
+        }
+}
+
+
+// Definition for singly-linked list.
+ class ListNode {
+     int val;
+     ListNode next;
+     ListNode() {}
+     ListNode(int val) { this.val = val; }
+     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ }
+
