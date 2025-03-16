@@ -1,0 +1,39 @@
+package RecursionPackage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class SubsetsWithDuplicates {
+    static List<List<Integer>> subsetsWithDuplicates(int[] arr)
+    {
+        Arrays.sort(arr);
+        List<List<Integer>> result = new ArrayList<>();
+        return backtrack(arr, 0 , new ArrayList<>(), result);
+    }
+
+
+
+     static List<List<Integer>> backtrack(int[] nums, int i, List<Integer> subset,  List<List<Integer>> res) {
+        if (i == nums.length) {
+            res.add(new ArrayList<>(subset));
+            return res;
+        }
+
+        // All subsets that include nums[i]
+        subset.add(nums[i]);
+        backtrack( nums,i + 1, subset, res);
+        subset.remove(subset.size() - 1);
+
+        // All subsets that don't include nums[i]
+        while (i + 1 < nums.length && nums[i] == nums[i + 1]) {
+            i++;
+        }
+        return backtrack(nums,i + 1, subset,  res);
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(subsetsWithDuplicates(new int[]{1,2,2,3}));
+    }
+}
